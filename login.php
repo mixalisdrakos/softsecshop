@@ -39,7 +39,7 @@ else if (!file_exists(__DIR__ . '/_header.php'))
 ?>
 <div class="container">
     <div class="row">
-        <h3>Please Log in</h3>
+        <h3>Test Log in</h3>
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12">
