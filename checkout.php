@@ -1,19 +1,21 @@
 <?php
 session_start();
-?>
 
-<?php if($_SESSION['token'] != $_POST['token']): ?>
-
-<?php else: ?>
-    <?php if(time() >= $_SESSION['token-expire']): ?>
-        <?php header('Location: login.php'); ?>
-        <?php exit(); ?>
-    <?php else: ?>
-        <?php if(!isset($_SESSION['useron'])): ?>
-            <?php header('Location: login.php'); ?>
-            <?php exit(); ?>
-        <?php else: ?>
-            <?php $cartItems = json_decode($_POST["hiddencheckout"]); ?>
+if($_SESSION['token'] != $_POST['token']){
+    header('Location: login.php');
+    exit();
+} else {
+    if(time() >= $_SESSION['token-expire']){
+        header('Location: login.php');
+        exit();
+    } else{
+        if(!isset($_SESSION['useron'])){
+            header('Location: login.php');
+            exit();
+        } else{
+            $cartItems = json_decode($_POST['hiddencheckout']);
+            
+            ?>
             <!DOCTYPE html>
             <html>
             	<head>
@@ -111,6 +113,9 @@ session_start();
                     <?php endif; ?>
                 </body>
             </html>
-        <?php endif; ?>
-    <?php endif; ?>
-<?php endif; ?>
+                      
+            <?php
+        }
+    }
+}
+?>
