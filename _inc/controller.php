@@ -17,7 +17,15 @@ class SecureDB {
 
 	function fetchProducts($item){
 		$query = 'SELECT * FROM products WHERE code LIKE "%' .$item. '%"';
-		//$query = "SELECT * FROM products WHERE code LIKE '%" . $sku . "%'";
+		$result = mysqli_query($this->conn,$query);
+		while($row=mysqli_fetch_assoc($result)) {
+			$results[] = $row;
+		}
+		return $results;
+	}
+	
+	function fetchAllProducts(){
+	    	$query = 'SELECT * FROM products';
 		$result = mysqli_query($this->conn,$query);
 		while($row=mysqli_fetch_assoc($result)) {
 			$results[] = $row;
