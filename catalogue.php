@@ -15,7 +15,6 @@ if(!isset($_SESSION['token'])){
             exit();
         } else {
             ?>
-                      
             <!DOCTYPE html>
             <html>
             	<head>
@@ -64,9 +63,7 @@ if(!isset($_SESSION['token'])){
                       <div class="col-lg-12 col-md-12 text-center product-box">
                         <p>There are <span id="cartcontainer">0</span> items in your cart</p>
                         <p>Total Amount: <span id="carttotal">0</span> EURO</p>
-                        
                         <div class="" id="cartDescription"></div>
-                        
                         <form action="checkout.php" method="post" id="checkoutform">
                           <input type="hidden" id="finalPrice" name="finalPrice" value="0">
                           <input type="hidden" id="finalQuantity" name="finalQuantity" value="0">
@@ -200,9 +197,6 @@ if(!isset($_SESSION['token'])){
                       alert("error");
                      }
                    });
-                   
-                   
-                   
                    console.log(cartItems);
                 });
             }
@@ -223,10 +217,8 @@ if(!isset($_SESSION['token'])){
             <?php endif; ?>
               </body>
             </html>
-            
             <?php
         }
     }
 }
-
 ?>
