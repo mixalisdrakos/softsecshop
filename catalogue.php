@@ -1,20 +1,21 @@
 <?php
 session_start();
 $tokenValidity = $_GET['id'];
-?>
 
-<?php if($_SESSION['token'] != $tokenValidity || $_SESSION['token'] == null): ?>
-    <?php header('Location: login.php'); ?>
-    <?php exit(); ?>
-<?php else: ?>
-    <?php if(time() >= $_SESSION['token-expire']): ?>
-        <?php header('Location: login.php'); ?>
-        <?php exit(); ?>
-    <?php else: ?>
-        <?php if(!isset($_SESSION['useron'])): ?>
-            <?php header('Location: login.php'); ?>
-            <?php exit(); ?>
-        <?php else: ?>
+if(!isset($_SESSION['token'])){
+    header('Location: login.php');
+    exit();
+} else {
+    if($_SESSION['token'] != $tokenValidity || $_SESSION['token'] == null){
+        header('Location: login.php');
+        exit();
+    } else{
+        if(!isset($_SESSION['useron'])){
+            header('Location: login.php');
+            exit();
+        } else {
+            ?>
+                      
             <!DOCTYPE html>
             <html>
             	<head>
@@ -222,6 +223,10 @@ $tokenValidity = $_GET['id'];
             <?php endif; ?>
               </body>
             </html>
-        <?php endif; ?>
-    <?php endif; ?>
-<?php endif; ?>
+            
+            <?php
+        }
+    }
+}
+
+?>
