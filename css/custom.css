@@ -42,6 +42,7 @@ body.loggedin {
 	width: 1000px;
 	height: 80%;
 	margin: 0 auto;
+	margin-bottom: 40px;
 }
 .content h2 {
 	margin: 0;
@@ -213,3 +214,14 @@ body {
 	border: 3px solid #f4f4f4;
 	text-align: center;
 }
+
+.cart-footer{
+    background-color: rgba(201, 76, 76, 0);
+    border: 3px solid #ffffff;
+}
+
+.cart-footer-div{
+    margin-top: 25px;
+}
+
+#cartbadge{font-weight: 700;}
