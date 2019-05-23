@@ -1,3 +1,14 @@
+<?php
+/*
+ * Generic header of this website
+ * contais: Bootstrap library (if exists)
+ *          jQuery library (if exists)
+ *          custom.css file (if exists)
+ *          
+ * In case a file does not 
+ * exists the website dies
+ */
+?>
 <?php if (file_exists(__DIR__ . '/css/bootstrap.min.css')): ?>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 <?php else: ?>
