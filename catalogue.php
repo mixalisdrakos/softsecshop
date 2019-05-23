@@ -96,22 +96,28 @@ if(!isset($_SESSION['token'])){
                       token: token
                     },
                     success:function(data) {
-                      var i = 0;
-                      for (var item in data) {
-                        var createDiv = "<div class='product-box col-lg-4'>";
-                        var endDiv = "</div>";
-                        var beLow = "<br>";
-                        var addToCartForm = "<form id='addToCart" + i + "' action=''><input type='text' class='product-quantity' id='prodquantity" + i +
-                                            "' name='prodquantity" + i + "' value='1' size='2' /><br>" +
-                                            "<input type='hidden' id='price" + i + "' value= '" + data[i].price + "'>" +
-                                            "<input type='hidden' id='prodname" + i + "' value='" + data[i].name + "'>" +
-                                            "<input type='hidden' id='cartToken' name='cartToken' value='" + token + "'>" +
-                                            "<input type='submit' class='btn btn-danger' onclick='addToCart(addToCart" + i + ",prodquantity" + i + ", price" + i + ", prodname" + i + ")' value='Add to Cart' /></form>";
+                      if(data == null || typeof data == 'string')  {
                         var product = document.getElementById("result");
-                        product.innerHTML += createDiv + data[i].name + beLow + 'SKU: ' + data[i].code + beLow + 'Price: ' + data[i].price + beLow + '<img width="200" height="160" src="/assets/images/' + data[i].image + '" />' + beLow + addToCartForm;
-                        i++;
+                        product.innerHTML = "<div class='product-box col-lg-12' style='text-align: center;'><span style='color: red;'>No results.</span><br><i>You must provide a valid SKU in order to receive successful results!</i></div>";
+                        $("#cartinfo").css("display", "none");
+                      } else {
+                          var i = 0;
+                          for (var item in data) {
+                            var createDiv = "<div class='product-box col-lg-4'>";
+                            var endDiv = "</div>";
+                            var beLow = "<br>";
+                            var addToCartForm = "<form id='addToCart" + i + "' action=''><input type='text' class='product-quantity' id='prodquantity" + i +
+                                                "' name='prodquantity" + i + "' value='1' size='2' /><br>" +
+                                                "<input type='hidden' id='price" + i + "' value= '" + data[i].price + "'>" +
+                                                "<input type='hidden' id='prodname" + i + "' value='" + data[i].name + "'>" +
+                                                "<input type='hidden' id='cartToken' name='cartToken' value='" + token + "'>" +
+                                                "<input type='submit' class='btn btn-danger' onclick='addToCart(addToCart" + i + ",prodquantity" + i + ", price" + i + ", prodname" + i + ")' value='Add to Cart' /></form>";
+                            var product = document.getElementById("result");
+                            product.innerHTML += createDiv + data[i].name + beLow + 'SKU: ' + data[i].code + beLow + 'Price: ' + data[i].price + beLow + '<img width="200" height="160" src="/assets/images/' + data[i].image + '" />' + beLow + addToCartForm;
+                            i++;
+                          }
+                          $("#cartinfo").css("display", "");
                       }
-                      $("#cartinfo").css("display", "");
                    },
                    error:function(){
                     alert("error");
