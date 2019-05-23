@@ -72,7 +72,7 @@ if($_SESSION['token'] != $_POST['token']){
                               <input type="hidden" name="totalQty" id="totalQty" value="<?php echo $_POST["finalQuantity"]; ?>">
                               <input type="hidden" name="totalPrice" id="totalPrice" value="<?php echo $_POST["finalPrice"]; ?>">
                               <input type="hidden" id="finalToken" name="token" value="<?php echo $_SESSION['token']; ?>">
-                              <input type="submit" name="Submit" value="Send Order">
+                              <input type="submit" class="btn btn-danger" name="Submit" value="Send Order">
                             </form>
                           </div>
                         </div>
