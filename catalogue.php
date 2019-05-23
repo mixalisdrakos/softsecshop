@@ -15,6 +15,7 @@ if(!isset($_SESSION['token'])){
             exit();
         } else {
             ?>
+                      
             <!DOCTYPE html>
             <html>
             	<head>
@@ -59,11 +60,13 @@ if(!isset($_SESSION['token'])){
                     </div>
                     <div class="row" id="result">
                     </div>
-                    <div class="row">
+                    <div class="row" id="cartinfo" style="display: none;">
                       <div class="col-lg-12 col-md-12 text-center product-box">
                         <p>There are <span id="cartcontainer">0</span> items in your cart</p>
                         <p>Total Amount: <span id="carttotal">0</span> EURO</p>
+                        
                         <div class="" id="cartDescription"></div>
+                        
                         <form action="checkout.php" method="post" id="checkoutform">
                           <input type="hidden" id="finalPrice" name="finalPrice" value="0">
                           <input type="hidden" id="finalQuantity" name="finalQuantity" value="0">
@@ -108,6 +111,7 @@ if(!isset($_SESSION['token'])){
                         product.innerHTML += createDiv + data[i].name + beLow + 'SKU: ' + data[i].code + beLow + 'Price: ' + data[i].price + beLow + '<img width="200" height="160" src="/assets/images/' + data[i].image + '" />' + beLow + addToCartForm;
                         i++;
                       }
+                      $("#cartinfo").css("display", "");
                    },
                    error:function(){
                     alert("error");
@@ -143,6 +147,7 @@ if(!isset($_SESSION['token'])){
                         product.innerHTML += createDiv + data[i].name + beLow + 'SKU: ' + data[i].code + beLow + 'Price: ' + data[i].price + beLow + '<img width="200" height="160" src="/assets/images/' + data[i].image + '" />' + beLow + addToCartForm;
                         i++;
                       }
+                      $("#cartinfo").css("display", "");
                    },
                    error:function(){
                     alert("error");
@@ -183,6 +188,15 @@ if(!isset($_SESSION['token'])){
                         var storeTotal = parseFloat(containerTotal) + parseFloat(data.prodPrice);
                         displayCartTotal.innerHTML = storeTotal;
                         
+                        var displayFooterCartTotal = document.getElementById("cartbadge");
+                        var footerCartTotal = $("#cartbadge").html();
+                        var footerTotal = parseInt(footerCartTotal) + parseInt(data.prodQuantity);
+                        displayFooterCartTotal.innerHTML = footerTotal;
+                        if (footerTotal != 0){
+                            $("#cartbadge").css("color", "#ffb556");
+                        }
+                        
+                        
                         var displayCartDescription = document.getElementById("cartDescription");
                         var hiddenCheckoutField = $('#hiddencheckout');
                         displayCartDescription.innerHTML += "<p>Item: " + data.prodName + ", Quantity: " + data.prodQuantity + ", Price: " + data.prodPrice + "</p><hr>";
@@ -197,6 +211,9 @@ if(!isset($_SESSION['token'])){
                       alert("error");
                      }
                    });
+                   
+                   
+                   
                    console.log(cartItems);
                 });
             }
@@ -217,6 +234,7 @@ if(!isset($_SESSION['token'])){
             <?php endif; ?>
               </body>
             </html>
+            
             <?php
         }
     }
