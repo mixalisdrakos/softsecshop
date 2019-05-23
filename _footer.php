@@ -1,6 +1,6 @@
 <?php 
 /*
- * Generic footer of this website, containing
+ * Generic footer of this website
  * contais: Cart badge
  *          Copyright information
  */
