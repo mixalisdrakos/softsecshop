@@ -2,14 +2,21 @@
 session_start();
 
 if($_SESSION['token'] != $_POST['token']){
+    session_unset();
+    session_destroy();
     header('Location: login.php');
     exit();
 } else {
-    if(time() >= $_SESSION['token-expire']){
+    if(time() >= $_SESSION['token_expire'] && time() >= $_SESSION['iddle_state']){
+        session_unset();
+        session_destroy();
         header('Location: login.php');
         exit();
     } else{
+        $_SESSION['iddle_state'] = time() + 600;
         if(!isset($_SESSION['useron'])){
+            session_unset();
+            session_destroy();
             header('Location: login.php');
             exit();
         } else{
@@ -133,4 +140,5 @@ if($_SESSION['token'] != $_POST['token']){
         }
     }
 }
+
 ?>
