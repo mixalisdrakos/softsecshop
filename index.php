@@ -7,7 +7,7 @@ if (!isset($_SESSION['useron'])) {
 	header('Location: login.php');
 	exit();
 }
-if(!isset($_SESSION['token']) || $_SESSION['token'] != $_GET['id']){
+if(!isset($_SESSION['token'])){ // || $_SESSION['token'] != $_GET['id'] when coming back from internal URL
     session_unset();
     session_destroy();
     header('Location: login.php');
