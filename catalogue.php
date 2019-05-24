@@ -205,7 +205,7 @@ if(!isset($_SESSION['token'])){
                         
                         var displayCartDescription = document.getElementById("cartDescription");
                         var hiddenCheckoutField = $('#hiddencheckout');
-                        displayCartDescription.innerHTML += "<p>Item: " + data.prodName + ", Quantity: " + data.prodQuantity + ", Price: " + data.prodPrice + "</p><hr>";
+                        displayCartDescription.innerHTML += "<p>" + data.prodQuantity + "<strong> X </strong> " + data.prodName + ", Price: " + data.prodPrice + ".00 €</p><hr>";
                         
                         finalQuantity.val(storeQuantity);
                         finalPrice.val(storeTotal);
