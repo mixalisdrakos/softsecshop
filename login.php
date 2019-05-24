@@ -1,5 +1,6 @@
 <?php
 
+
 $startTime = microtime(1);
 $startMem  = memory_get_usage();
 session_start();
@@ -32,24 +33,27 @@ else if (!file_exists(__DIR__ . '/_header.php'))
     <nav class="navtop">
 		<div>
 			<h1>Software Security Shop</h1>
-			<a href="login.php"><i class="fas fa-sign-in-alt"></i>Login</a>
 		</div>
 	</nav>
     <div class="content">
         <div class="row">
-            <form method="post" action="validate.php">
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input type="text" class="form-control" name="username" id="username" placeholder="Enter username">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"></div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <form method="post" action="validate.php">
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" name="username" id="username" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
+                  <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Log in</button><br>
+                <span><i>In case you forgot your password, please contact the system administrator at <a href="mailto:info@administrator.example">info@administrator.example</a></i></span>
+                </form>
             </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
-              <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>"/>
-            </div>
-            <button type="submit" class="btn btn-primary">Log in</button><br>
-            <span><i>In case you forgot your password, please contact the system administrator at <a href="mailto:info@administrator.example">info@administrator.example</a></i></span>
-            </form>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"></div>
         </div>
     </div>
 
