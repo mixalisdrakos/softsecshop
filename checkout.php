@@ -13,6 +13,8 @@ if($_SESSION['token'] != $_POST['token']){
             header('Location: login.php');
             exit();
         } else{
+            $length = 64;
+            $_SESSION['orderConfirmation'] = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, $length);
             $cartItems = json_decode($_POST['hiddencheckout']);
             
             ?>
@@ -25,7 +27,7 @@ if($_SESSION['token'] != $_POST['token']){
             	    <?php include_once(__DIR__ . '/_header.php'); ?>
             	  <?php endif; ?>
             	</head>
-            	<body class="loggedin">
+            	<body class="loggedin"><?php echo $_SESSION['orderConfirmation']; ?>
             		<nav class="navtop">
             			<div>
             				<h1>Software Security Shop</h1>
@@ -50,7 +52,7 @@ if($_SESSION['token'] != $_POST['token']){
                                 <tr>
                                     <td><?php echo $ci[0]; ?></td>
                                     <td><?php echo $ci[1]; ?></td>
-                                    <td><?php echo $ci[2]; ?></td>
+                                    <td><?php echo $ci[2]; ?>.00 €</td>
                                 </tr>
                                 <?php endforeach; ?>
                               <tr>
@@ -61,7 +63,7 @@ if($_SESSION['token'] != $_POST['token']){
                               <tr>
                                 <td></td>
                                 <td><strong>Total Qty.: <?php echo $_POST["finalQuantity"]; ?></strong></td> 
-                                <td><strong>Total Price: <?php echo $_POST["finalPrice"]; ?></strong></td> 
+                                <td><strong>Total Price: <?php echo $_POST["finalPrice"]; ?>.00 €</strong></td> 
                               </tr>
                             </table>
                             <p>&nbsp;</p>
@@ -71,8 +73,9 @@ if($_SESSION['token'] != $_POST['token']){
                               <input type="hidden" name="cartDescription" id="cartDescription" value='<?php echo $_POST["hiddencheckout"]; ?>'>
                               <input type="hidden" name="totalQty" id="totalQty" value="<?php echo $_POST["finalQuantity"]; ?>">
                               <input type="hidden" name="totalPrice" id="totalPrice" value="<?php echo $_POST["finalPrice"]; ?>">
+                              <input type="hidden" name="orderConfirmed" id="orderConfirmed">
                               <input type="hidden" id="finalToken" name="token" value="<?php echo $_SESSION['token']; ?>">
-                              <input type="submit" class="btn btn-danger" name="Submit" value="Send Order">
+                              <input type="submit" id="checkoutSubmit" class="btn btn-danger" name="Submit" value="Confirm Order">
                             </form>
                           </div>
                         </div>
@@ -86,6 +89,7 @@ if($_SESSION['token'] != $_POST['token']){
                           var totalQuantity = $("input#totalQty").val();
                           var totalPrice = $("input#totalPrice").val();
                           var token = $("input#finalToken").val();
+                          var confirmation = $("input#orderConfirmed").val();
                           $.ajax({
                                 url:"/confirmation.php ",
                                 method:"POST",
@@ -94,10 +98,21 @@ if($_SESSION['token'] != $_POST['token']){
                                   cartDescription: cartDescription,
                                   totalQuantity: totalQuantity,
                                   totalPrice: totalPrice,
-                                  token: token
+                                  token: token,
+                                  confirmation: confirmation
                                 },
                                 success:function(data) {
-                                  console.log(data);
+                                  if(data.confirmed == "yes" && data.sent == "no"){
+                                      var checkout = $('#checkoutSubmit');
+                                      $('#orderConfirmed').val('<?php echo $_SESSION['orderConfirmation']; ?>');
+                                      checkout.removeClass('btn-danger');
+                                      checkout.addClass('btn-success');
+                                      checkout.val('Send Order');
+                                      console.log("approved");
+                                  }
+                                  if (data.approved == "yes" && data.sent == "yes"){
+                                      console.log("success");
+                                  }
                                },
                                error:function(){
                                 alert("error");
