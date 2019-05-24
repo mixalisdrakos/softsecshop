@@ -6,7 +6,7 @@ $startMem  = memory_get_usage();
 session_start();
 $length = 32;
 $_SESSION['token'] = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, $length);
-$_SESSION['token-expire'] = time() + 3600;
+$_SESSION['token-expire'] = time() + 600;
 ?>
 <!DOCTYPE html>
 <html>
