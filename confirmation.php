@@ -2,12 +2,16 @@
 session_start();
 
 if($_SESSION['token'] != $_POST['token']){
+    session_unset();
+    session_destroy();
     header('Location: login.php');
 	exit();
 }
 else{
 
     if (!isset($_SESSION['useron'])) {
+    	session_unset();
+        session_destroy();
     	header('Location: login.php');
     	exit();
     }
@@ -15,11 +19,14 @@ else{
      * SKUs = 'LPN45', 'LPX230U', 'MBP2019U', 'HPP12U'
      */
      
-    if(time() >= $_SESSION['token-expire']){
+    if(time() >= $_SESSION['token_expire'] && time() >= $_SESSION['iddle_state']){
+        session_unset();
+        session_destroy();
         header('Location: login.php');
     	exit();    
     } else{
         
+        $_SESSION['iddle_state'] = time() + 600;
         
         if($_POST["totalPrice"]){
           if($_POST["totalPrice"] != null || $_POST["totalPrice"] != 0){
