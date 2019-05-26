@@ -51,10 +51,10 @@ if ($_SESSION['token']==$_POST['token']) {
         		$_SESSION['id'] = $id;
         		header('Location: index.php');
         	} else {
-        		echo 'Incorrect password!';
+        		echo 'You have got incorrect Username or Password!';
         	}
         } else {
-        	echo 'Incorrect username!';
+        	echo 'You have got incorrect Username or Password!';
         }
         $stmt->close();
     }
